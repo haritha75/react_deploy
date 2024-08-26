@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "./config/app";
 import "../css/UpdateUser.css";
 
 const UpdateUser = () => {
@@ -14,10 +14,8 @@ const UpdateUser = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
-      )
+    api
+      .get("/admin/users")
       .then((response) => {
         setUsers(response.data);
       })
@@ -43,15 +41,12 @@ const UpdateUser = () => {
       return;
     }
 
-    axios
-      .put(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/updateUser/${user_id}`,
-        {
-          ...formData,
-          user_id: parseInt(user_id, 10),
-          managerid: parseInt(managerid, 10),
-        }
-      )
+    api
+      .put(`/admin/updateUser/${user_id}`, {
+        ...formData,
+        user_id: parseInt(user_id, 10),
+        managerid: parseInt(managerid, 10),
+      })
       .then((response) => {
         console.log("User updated:", response.data);
         alert("User updated successfully!");

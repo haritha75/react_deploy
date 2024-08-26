@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import api from "./config/app";
 import "../css/UpdateTaskStatus.css";
 
 const ItemTypes = {
@@ -95,24 +96,12 @@ const UpdateTaskStatus = () => {
     const fetchTasksAndMilestones = async () => {
       try {
         const [tasksResponse, milestonesResponse] = await Promise.all([
-          fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/user/${user.userId}`
-          ),
-          fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones`
-          ),
+          api.get(`/tasks/user/${user.userId}`),
+          api.get(`/milestones`),
         ]);
 
-        if (tasksResponse.ok && milestonesResponse.ok) {
-          const [tasksData, milestonesData] = await Promise.all([
-            tasksResponse.json(),
-            milestonesResponse.json(),
-          ]);
-          setTasks(tasksData);
-          setMilestones(milestonesData);
-        } else {
-          setError("Failed to fetch tasks or milestones");
-        }
+        setTasks(tasksResponse.data);
+        setMilestones(milestonesResponse.data);
       } catch (error) {
         setError("An error occurred while fetching data: " + error.message);
       } finally {
@@ -130,16 +119,9 @@ const UpdateTaskStatus = () => {
     setTasks(updatedTasks);
 
     try {
-      await fetch(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/${task.taskId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ milestoneId: newMilestone.milestoneId }),
-        }
-      );
+      await api.put(`/tasks/${task.taskId}`, {
+        milestoneId: newMilestone.milestoneId,
+      });
     } catch (error) {
       setError(
         "An error occurred while updating task milestone: " + error.message
@@ -149,29 +131,15 @@ const UpdateTaskStatus = () => {
 
   const handleCreateMilestone = async () => {
     try {
-      const response = await fetch(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            milestoneName: newMilestoneName,
-            milestoneDescription: newMilestoneDescription,
-          }),
-        }
-      );
+      const response = await api.post(`/milestones`, {
+        milestoneName: newMilestoneName,
+        milestoneDescription: newMilestoneDescription,
+      });
 
-      if (response.ok) {
-        const newMilestone = await response.json();
-        setMilestones([...milestones, newMilestone]);
-        setShowModal(false);
-        setNewMilestoneName("");
-        setNewMilestoneDescription("");
-      } else {
-        setError("Failed to create milestone");
-      }
+      setMilestones([...milestones, response.data]);
+      setShowModal(false);
+      setNewMilestoneName("");
+      setNewMilestoneDescription("");
     } catch (error) {
       setError("An error occurred while creating milestone: " + error.message);
     }
@@ -179,36 +147,22 @@ const UpdateTaskStatus = () => {
 
   const updateMilestoneName = async (milestoneId, newName, newDescription) => {
     try {
-      const response = await fetch(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones/${milestoneId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            milestoneName: newName,
-            milestoneDescription: newDescription,
-          }),
-        }
-      );
+      const response = await api.put(`/milestones/${milestoneId}`, {
+        milestoneName: newName,
+        milestoneDescription: newDescription,
+      });
 
-      if (response.ok) {
-        const updatedMilestone = await response.json();
-        setMilestones((prevMilestones) =>
-          prevMilestones.map((milestone) =>
-            milestone.milestoneId === milestoneId
-              ? {
-                  ...milestone,
-                  milestoneName: updatedMilestone.milestoneName,
-                  milestoneDescription: updatedMilestone.milestoneDescription,
-                }
-              : milestone
-          )
-        );
-      } else {
-        setError("Failed to update milestone name");
-      }
+      setMilestones((prevMilestones) =>
+        prevMilestones.map((milestone) =>
+          milestone.milestoneId === milestoneId
+            ? {
+                ...milestone,
+                milestoneName: response.data.milestoneName,
+                milestoneDescription: response.data.milestoneDescription,
+              }
+            : milestone
+        )
+      );
     } catch (error) {
       setError(
         "An error occurred while updating milestone name: " + error.message
@@ -317,7 +271,7 @@ const UpdateTaskStatus = () => {
               editMilestone ? handleEditMilestone : handleCreateMilestone
             }
           >
-            {editMilestone ? "Update Milestone" : "Create Milestone"}
+            {editMilestone ? "Save Changes" : "Create Milestone"}
           </Button>
         </Modal.Footer>
       </Modal>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import api from "./config/app";
 import "../css/TasksPageForManager.css";
 
 const TasksPageForManager = () => {
@@ -12,17 +13,15 @@ const TasksPageForManager = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const projectsResponse = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/by-manager/${user.userId}`
+        const projectsResponse = await api.get(
+          `/projects/by-manager/${user.userId}`
         );
-        const projects = await projectsResponse.json();
+        const projects = projectsResponse.data;
 
         const projectIds = projects.map((project) => project.projectId);
 
         const tasksPromises = projectIds.map((projectId) =>
-          fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/project/${projectId}`
-          ).then((res) => res.json())
+          api.get(`/tasks/project/${projectId}`).then((res) => res.data)
         );
 
         const tasksArray = await Promise.all(tasksPromises);

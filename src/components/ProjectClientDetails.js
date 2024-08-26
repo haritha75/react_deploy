@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "./config/app";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/ViewProjectClientDetails.css";
@@ -15,9 +15,7 @@ const ProjectClientDetails = () => {
       try {
         setLoading(true);
 
-        const projectResponse = await axios.get(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
-        );
+        const projectResponse = await api.get(`/projects/${projectId}`);
 
         if (projectResponse.data && projectResponse.data.client) {
           setClient(projectResponse.data.client);

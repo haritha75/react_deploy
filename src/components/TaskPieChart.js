@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-import axios from "axios";
+import api from "./config/app";
 import "../css/AdminTaskPieChart.css";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
@@ -14,10 +14,8 @@ const TaskPieChart = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones"
-      )
+    api
+      .get("/milestones")
       .then((response) => {
         const milestones = response.data;
         const milestoneNames = {};
@@ -28,9 +26,7 @@ const TaskPieChart = () => {
 
         setMilestoneNames(milestoneNames);
 
-        return axios.get(
-          "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks"
-        );
+        return api.get("/tasks");
       })
       .then((response) => {
         const tasks = response.data;

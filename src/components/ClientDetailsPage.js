@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "../css/ClientDetailsPage.css";
+import api from "./config/app";
 
 const ClientDetailsPage = () => {
   const location = useLocation();
@@ -10,19 +11,17 @@ const ClientDetailsPage = () => {
   useEffect(() => {
     const fetchClientDetails = async () => {
       try {
-        const projectsResponse = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/by-manager/${user.userId}`
+        const projectsResponse = await api.get(
+          `/projects/by-manager/${user.userId}`
         );
-        const projects = await projectsResponse.json();
+        const projects = projectsResponse.data;
 
         const clientIds = Array.from(
           new Set(projects.map((project) => project.client.clientId))
         );
 
         const clientDetailsPromises = clientIds.map((clientId) =>
-          fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients/${clientId}`
-          ).then((res) => res.json())
+          api.get(`/clients/${clientId}`).then((res) => res.data)
         );
         const clientDetailsArray = await Promise.all(clientDetailsPromises);
 

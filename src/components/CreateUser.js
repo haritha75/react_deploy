@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "../css/CreateUser.css";
+import api from "./config/app";
 
 const CreateUser = () => {
   const initialFormData = {
@@ -25,10 +25,8 @@ const CreateUser = () => {
   });
 
   useEffect(() => {
-    axios
-      .get(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
-      )
+    api
+      .get("/admin/users")
       .then((response) => {
         const nextUserId = response.data.length + 1;
         console.log("Next User ID:", nextUserId);
@@ -105,11 +103,8 @@ const CreateUser = () => {
       return;
     }
 
-    axios
-      .post(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/registration",
-        formData
-      )
+    api
+      .post("/admin/registration", formData)
       .then((response) => {
         console.log("Form data submitted:", response.data);
         alert("User created successfully!");

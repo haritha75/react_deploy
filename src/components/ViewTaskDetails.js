@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import api from "./config/app";
 import "../css/ViewTaskDetails.css";
 
 const ViewTaskDetails = () => {
@@ -18,13 +19,8 @@ const ViewTaskDetails = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
-        );
-        if (!response.ok)
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        const projectData = await response.json();
-        setProject(projectData);
+        const response = await api.get(`/projects/${projectId}`);
+        setProject(response.data);
       } catch (err) {
         console.error("Project fetch error:", err);
         setError(err.message || "Failed to fetch project details");
@@ -37,13 +33,8 @@ const ViewTaskDetails = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/project/${projectId}`
-        );
-        if (!response.ok)
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        const tasksData = await response.json();
-        setTasks(Array.isArray(tasksData) ? tasksData : []);
+        const response = await api.get(`/tasks/project/${projectId}`);
+        setTasks(Array.isArray(response.data) ? response.data : []);
       } catch (err) {
         console.error("Tasks fetch error:", err);
         setError(err.message || "Failed to fetch tasks");
@@ -62,23 +53,15 @@ const ViewTaskDetails = () => {
         setLoading(true);
         setError(null);
         try {
-          const taskResponse = await fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/${selectedTask}`
-          );
-          if (!taskResponse.ok)
-            throw new Error(`HTTP error! Status: ${taskResponse.status}`);
-          const taskData = await taskResponse.json();
-          setTask(taskData);
+          const taskResponse = await api.get(`/tasks/${selectedTask}`);
+          setTask(taskResponse.data);
 
-          setUserName(taskData.user?.userName || "N/A");
+          setUserName(taskResponse.data.user?.userName || "N/A");
 
-          const timestampResponse = await fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/${selectedTask}/timestamps`
+          const timestampResponse = await api.get(
+            `/tasks/${selectedTask}/timestamps`
           );
-          if (!timestampResponse.ok)
-            throw new Error(`HTTP error! Status: ${timestampResponse.status}`);
-          const timestampData = await timestampResponse.json();
-          setTimestamps(timestampData);
+          setTimestamps(timestampResponse.data);
         } catch (err) {
           console.error("Task details fetch error:", err);
           setError(err.message || "Failed to fetch task details");

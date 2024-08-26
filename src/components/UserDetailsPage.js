@@ -1,37 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import api from "./config/app";
 import "../css/UserDetailsPage.css";
 
 const UserDetailsPage = () => {
   const location = useLocation();
   const { user } = location.state || {};
   const [userDetails, setUserDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const usersResponse = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users`
-        );
-        const allUsers = await usersResponse.json();
+        const response = await api.get(`/admin/users`);
+        const allUsers = response.data;
 
         const filteredUsers = allUsers.filter(
-          (users) => users.managerId === user.userId
+          (user) => user.managerId === user.userId
         );
 
         setUserDetails(filteredUsers);
       } catch (error) {
-        console.error("Error fetching user details:", error);
+        setError("Error fetching user details: " + error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchUserDetails();
-  }, [user.userId]);
+    if (user) {
+      fetchUserDetails();
+    }
+  }, [user]);
 
   return (
     <div className="user-details-container1">
-      <br></br>
-      {userDetails.length > 0 ? (
+      <br />
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : userDetails.length > 0 ? (
         <div className="user-details-table">
           <div className="user-details-header">
             <div>User Name</div>

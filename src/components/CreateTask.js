@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../css/CreateTask.css";
+import api from "./config/app";
 
 const CreateTask = ({ onCreate }) => {
   const { projectId } = useParams();
@@ -23,11 +24,8 @@ const CreateTask = ({ onCreate }) => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const response = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
-        );
-        const data = await response.json();
-        setProject(data);
+        const response = await api.get(`/projects/${projectId}`);
+        setProject(response.data);
       } catch (err) {
         console.error("Failed to fetch project:", err);
       }
@@ -35,11 +33,8 @@ const CreateTask = ({ onCreate }) => {
 
     const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
-        );
-        const data = await response.json();
-        setUsers(Array.isArray(data) ? data : []);
+        const response = await api.get("/admin/users");
+        setUsers(Array.isArray(response.data) ? response.data : []);
       } catch (err) {
         console.error("Failed to fetch users:", err);
       }
@@ -47,11 +42,8 @@ const CreateTask = ({ onCreate }) => {
 
     const fetchMilestones = async () => {
       try {
-        const response = await fetch(
-          "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones"
-        );
-        const data = await response.json();
-        setMilestones(Array.isArray(data) ? data : []);
+        const response = await api.get("/milestones");
+        setMilestones(Array.isArray(response.data) ? response.data : []);
       } catch (err) {
         console.error("Failed to fetch milestones:", err);
       }
@@ -96,20 +88,13 @@ const CreateTask = ({ onCreate }) => {
         taskToCreate.milestone = { milestoneId: task.milestoneId };
       }
 
-      const response = await fetch(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(taskToCreate),
-        }
-      );
+      const response = await api.post("/tasks", taskToCreate, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-      if (!response.ok) throw new Error("Failed to create task");
-      const createdTask = await response.json();
-      onCreate(createdTask);
+      onCreate(response.data);
 
       setTask({
         taskName: "",

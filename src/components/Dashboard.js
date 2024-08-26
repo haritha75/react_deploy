@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import api from "./config/app";
 import "../css/Dashboard.css";
 import { Pagination, Form, InputGroup } from "react-bootstrap";
 
@@ -22,35 +23,19 @@ const Dashboard = () => {
       try {
         const [projectsRes, usersRes, tasksRes, clientsRes, teamsRes] =
           await Promise.all([
-            fetch(
-              "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects"
-            ),
-            fetch(
-              "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
-            ),
-            fetch(
-              "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks"
-            ),
-            fetch(
-              "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients"
-            ),
-            fetch(
-              "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teams"
-            ),
+            api.get("/projects"),
+            api.get("/admin/users"),
+            api.get("/tasks"),
+            api.get("/clients"),
+            api.get("/teams"),
           ]);
 
-        const projects = await projectsRes.json();
-        const users = await usersRes.json();
-        const tasks = await tasksRes.json();
-        const clients = await clientsRes.json();
-        const teams = await teamsRes.json();
-
         setData({
-          totalProjects: projects.length,
-          totalTeam: teams.length,
-          totalTasks: tasks.length,
-          totalUsers: users.length,
-          totalClients: clients.length,
+          totalProjects: projectsRes.data.length,
+          totalTeam: teamsRes.data.length,
+          totalTasks: tasksRes.data.length,
+          totalUsers: usersRes.data.length,
+          totalClients: clientsRes.data.length,
         });
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -99,29 +84,21 @@ const Dashboard = () => {
       let res;
       switch (type) {
         case "projects":
-          res = await fetch(
-            "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects"
-          );
+          res = await api.get("/projects");
           break;
         case "team":
-          res = await fetch(
-            "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teams"
-          );
+          res = await api.get("/teams");
           break;
         case "users":
-          res = await fetch(
-            "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
-          );
+          res = await api.get("/admin/users");
           break;
         case "clients":
-          res = await fetch(
-            "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients"
-          );
+          res = await api.get("/clients");
           break;
         default:
           return;
       }
-      const details = await res.json();
+      const details = res.data;
       setDetailedData(details);
       setFilteredData(details); // Initialize filtered data with the full dataset
     } catch (error) {
@@ -265,43 +242,36 @@ const Dashboard = () => {
               )
             )}
           </Pagination>
-          <button onClick={() => setActiveCard(null)}>Go Back</button>
+          <button
+            className="btn btn-secondary mt-3"
+            onClick={() => setActiveCard(null)}
+          >
+            Back to Dashboard
+          </button>
         </div>
       ) : (
-        <>
-          <div
-            className="dashboardcard"
-            style={{ backgroundColor: "#6699cc" }}
-            onClick={() => handleCardClick("projects")}
-          >
+        <div className="card-container">
+          <div className="card" onClick={() => handleCardClick("projects")}>
             <h3>Total Projects</h3>
             <p>{data.totalProjects}</p>
           </div>
-          <div className="dashboardcard" style={{ backgroundColor: "#6699cc" }}>
+          <div className="card" onClick={() => handleCardClick("team")}>
             <h3>Total Team</h3>
             <p>{data.totalTeam}</p>
           </div>
-          <div
-            className="dashboardcard"
-            style={{ backgroundColor: "#6699cc" }}
-            onClick={() => handleCardClick("users")}
-          >
-            <h3>Total Users</h3>
-            <p>{data.totalUsers}</p>
-          </div>
-          <div
-            className="dashboardcard"
-            style={{ backgroundColor: "#6699cc" }}
-            onClick={() => handleCardClick("clients")}
-          >
-            <h3>Total Clients</h3>
-            <p>{data.totalClients}</p>
-          </div>
-          <div className="dashboardcard" style={{ backgroundColor: "#6699cc" }}>
+          <div className="card" onClick={() => handleCardClick("tasks")}>
             <h3>Total Tasks</h3>
             <p>{data.totalTasks}</p>
           </div>
-        </>
+          <div className="card" onClick={() => handleCardClick("users")}>
+            <h3>Total Users</h3>
+            <p>{data.totalUsers}</p>
+          </div>
+          <div className="card" onClick={() => handleCardClick("clients")}>
+            <h3>Total Clients</h3>
+            <p>{data.totalClients}</p>
+          </div>
+        </div>
       )}
     </div>
   );

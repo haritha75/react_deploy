@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "./config/app";
 import logopassword from "../media/passwordreset.png";
 import "../css/PasswordReset.css";
 
@@ -52,11 +52,8 @@ const PasswordResetPage = () => {
       return;
     }
 
-    axios
-      .post(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/requestPasswordReset",
-        { email }
-      )
+    api
+      .post("/requestPasswordReset", { email })
       .then((response) => {
         alert("An OTP has been sent to your email.");
         setStep(2);
@@ -89,15 +86,12 @@ const PasswordResetPage = () => {
       return;
     }
 
-    axios
-      .post(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/resetPassword",
-        {
-          token,
-          newPassword,
-          confirmPassword,
-        }
-      )
+    api
+      .post("/resetPassword", {
+        token,
+        newPassword,
+        confirmPassword,
+      })
       .then((response) => {
         alert("Password updated successfully!");
         window.location.href = "/login";

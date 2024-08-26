@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import "../css/AddTeamMember.css";
+import api from "./config/app";
 
 const AddTeamMember = () => {
   const { projectId } = useParams();
@@ -12,10 +12,8 @@ const AddTeamMember = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teams/project/${projectId}`
-      )
+    api
+      .get(`/teams/project/${projectId}`)
       .then((response) => {
         const team = response.data;
         if (team) {
@@ -33,10 +31,8 @@ const AddTeamMember = () => {
         setTeamId("");
       });
 
-    axios
-      .get(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
-      )
+    api
+      .get("/admin/users")
       .then((response) => {
         const filteredUsers = response.data.filter(
           (user) =>
@@ -61,10 +57,8 @@ const AddTeamMember = () => {
       userId: userId,
     });
 
-    axios
-      .post(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teamMember?${params.toString()}`
-      )
+    api
+      .post(`/teamMember?${params.toString()}`)
       .then((response) => {
         console.log("Team member added successfully:", response.data);
         setUserId("");

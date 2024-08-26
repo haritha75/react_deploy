@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "../css/CreateProject.css";
+import api from "./config/app";
 
 const CreateProject = () => {
   const initialFormData = {
@@ -38,10 +38,8 @@ const CreateProject = () => {
     //   });
 
     // Fetch clients
-    axios
-      .get(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients"
-      )
+    api
+      .get("/clients")
       .then((response) => {
         console.log("Clients data:", response.data);
         setClients(response.data);
@@ -54,10 +52,8 @@ const CreateProject = () => {
       });
 
     // Fetch managers
-    axios
-      .get(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
-      )
+    api
+      .get("/admin/users")
       .then((response) => {
         const filteredManagers = response.data.filter(
           (user) =>
@@ -125,13 +121,8 @@ const CreateProject = () => {
       percentageLeft: 0.0,
     };
 
-    axios
-      .post(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects?teamName=${encodeURIComponent(
-          teamName
-        )}`,
-        projectData
-      )
+    api
+      .post(`/projects?teamName=${encodeURIComponent(teamName)}`, projectData)
       .then((response) => {
         console.log("Form data submitted:", response.data);
         alert("Project created successfully!");

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "../css/AssignRole.css";
+import api from "./config/app";
 
 const AssignRole = () => {
   const [formData, setFormData] = useState({
@@ -13,9 +13,7 @@ const AssignRole = () => {
     // Fetch the list of users when the component mounts
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(
-          "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
-        );
+        const response = await api.get("/admin/users");
         setUsers(response.data); // Assuming response.data is an array of users
       } catch (error) {
         console.error("There was an error fetching users!", error);
@@ -42,13 +40,10 @@ const AssignRole = () => {
       return;
     }
 
-    axios
-      .put(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/assignRole/${userid}`,
-        {
-          role,
-        }
-      )
+    api
+      .put(`/admin/assignRole/${userid}`, {
+        role,
+      })
       .then((response) => {
         console.log("Role assigned:", response.data);
         alert("Role assigned successfully!");

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "./config/app";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -28,9 +28,7 @@ const TaskMilestoneChart = () => {
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
-        const projectResponse = await axios.get(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
-        );
+        const projectResponse = await api.get(`/projects/${projectId}`);
         setProjectName(projectResponse.data.projectName);
       } catch (error) {
         console.error("Error fetching project details:", error);
@@ -39,9 +37,7 @@ const TaskMilestoneChart = () => {
 
     const fetchTasks = async () => {
       try {
-        const tasksResponse = await axios.get(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/project/${projectId}`
-        );
+        const tasksResponse = await api.get(`/tasks/project/${projectId}`);
         setTaskData(tasksResponse.data);
       } catch (error) {
         console.error("Error fetching tasks:", error);

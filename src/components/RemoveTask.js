@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import api from "./config/app";
 import "../css/RemoveTask.css";
 
 const RemoveTask = () => {
@@ -14,9 +14,7 @@ const RemoveTask = () => {
     if (projectId) {
       const fetchProjectName = async () => {
         try {
-          const response = await axios.get(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
-          );
+          const response = await api.get(`/projects/${projectId}`);
           setProjectName(response.data.projectName);
         } catch (error) {
           console.error("Error fetching project name:", error);
@@ -26,9 +24,7 @@ const RemoveTask = () => {
 
       const fetchTasks = async () => {
         try {
-          const response = await axios.get(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/project/${projectId}`
-          );
+          const response = await api.get(`/tasks/project/${projectId}`);
           setTasks(response.data);
           setLoading(false);
         } catch (error) {
@@ -45,9 +41,7 @@ const RemoveTask = () => {
 
   const handleRemoveTask = async (taskId) => {
     try {
-      await axios.delete(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/tasks/${taskId}`
-      );
+      await api.delete(`/tasks/${taskId}`);
       setTasks(tasks.filter((task) => task.taskId !== taskId));
       alert(`Task with ID ${taskId} has been removed.`);
     } catch (error) {

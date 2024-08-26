@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "../css/CreateClient.css";
+import api from "./config/app";
 
 const CreateClient = () => {
   const initialFormData = {
@@ -15,10 +15,8 @@ const CreateClient = () => {
   const [clientCount, setClientCount] = useState(0);
 
   useEffect(() => {
-    axios
-      .get(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients"
-      )
+    api
+      .get("/clients")
       .then((response) => {
         const nextClientId = response.data.length + 1;
         console.log("Next Client ID:", nextClientId);
@@ -67,11 +65,8 @@ const CreateClient = () => {
       return;
     }
 
-    axios
-      .post(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients",
-        formData
-      )
+    api
+      .post("/clients", formData)
       .then((response) => {
         console.log("Form data submitted:", response.data);
         alert("Client created successfully!");

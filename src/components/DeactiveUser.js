@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "../css/DeactiveUser.css";
+import api from "./config/app";
 
 const DeactivateUser = () => {
   const [users, setUsers] = useState([]);
@@ -8,10 +8,8 @@ const DeactivateUser = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
-      )
+    api
+      .get("/admin/users")
       .then((response) => {
         const activeUsers = response.data.filter(
           (user) => user.status === "ACTIVE"
@@ -36,11 +34,8 @@ const DeactivateUser = () => {
       return;
     }
 
-    axios
-      .put(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/deactivateUser/${selectedUserId}`,
-        { status: "INACTIVE" }
-      )
+    api
+      .put(`/admin/deactivateUser/${selectedUserId}`, { status: "INACTIVE" })
       .then((response) => {
         alert("User deactivated successfully!");
         setSelectedUserId("");

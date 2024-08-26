@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../css/ProjectPage.css";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import api from "./config/app";
 
 import logo1 from "../media/1.jpg";
 import logo2 from "../media/logo2.jpg";
@@ -25,15 +26,14 @@ const ProjectPage = () => {
   const { user } = location.state || {};
 
   useEffect(() => {
-    fetch(
-      "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        let filteredProjects = data;
+    const fetchProjects = async () => {
+      try {
+        const response = await api.get("/projects");
+
+        let filteredProjects = response.data;
 
         if (user && user.userRole === "PROJECT_MANAGER") {
-          filteredProjects = data.filter(
+          filteredProjects = filteredProjects.filter(
             (project) =>
               project.manager && project.manager.userId === user.userId
           );
@@ -46,8 +46,12 @@ const ProjectPage = () => {
         }));
 
         setProjects(projectsWithImages);
-      })
-      .catch((error) => console.error("Error fetching projects:", error));
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      }
+    };
+
+    fetchProjects();
   }, [user]);
 
   return (

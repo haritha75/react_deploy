@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "./config/app";
 import "../css/UserDetails.css";
 
 const UserDetails = () => {
@@ -9,10 +9,8 @@ const UserDetails = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(
-        "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users"
-      )
+    api
+      .get("/admin/users")
       .then((response) => {
         setUsers(response.data);
       })
@@ -36,10 +34,8 @@ const UserDetails = () => {
       return;
     }
 
-    axios
-      .get(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users/${selectedUserId}`
-      )
+    api
+      .get(`/admin/users/${selectedUserId}`)
       .then((response) => {
         if (response.data) {
           setUser(response.data);

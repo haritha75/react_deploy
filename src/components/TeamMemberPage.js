@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import api from "./config/app";
 import {
   Container,
   Row,
@@ -31,36 +32,22 @@ const TeamMemberPage = () => {
 
     const fetchDetails = async () => {
       try {
-        const tasksResponse = await fetch(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/user/${user.userId}`
-        );
-        if (tasksResponse.ok) {
-          const tasksData = await tasksResponse.json();
-          setTasks(tasksData);
+        const tasksResponse = await api.get(`/tasks/user/${user.userId}`);
+        const tasksData = tasksResponse.data;
+        setTasks(tasksData);
 
-          if (tasksData.length > 0) {
-            const projectResponse = await fetch(
-              `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${tasksData[0].project.projectId}`
-            );
-            if (projectResponse.ok) {
-              const projectData = await projectResponse.json();
-              setProject(projectData);
+        if (tasksData.length > 0) {
+          const projectResponse = await api.get(
+            `/projects/${tasksData[0].project.projectId}`
+          );
+          const projectData = projectResponse.data;
+          setProject(projectData);
 
-              const clientResponse = await fetch(
-                `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/clients/${projectData.client.clientId}`
-              );
-              if (clientResponse.ok) {
-                const clientData = await clientResponse.json();
-                setClient(clientData);
-              } else {
-                setError("Failed to fetch client data");
-              }
-            } else {
-              setError("Failed to fetch project data");
-            }
-          }
-        } else {
-          setError("Failed to fetch tasks");
+          const clientResponse = await api.get(
+            `/clients/${projectData.client.clientId}`
+          );
+          const clientData = clientResponse.data;
+          setClient(clientData);
         }
       } catch (error) {
         setError("An error occurred while fetching details: " + error.message);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import api from "./config/app";
 import "../css/UpdateTask.css";
 
 const UpdateTask = () => {
@@ -21,6 +22,7 @@ const UpdateTask = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const [
           projectResponse,
@@ -28,49 +30,30 @@ const UpdateTask = () => {
           teamResponse,
           milestonesResponse,
         ] = await Promise.all([
-          fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/projects/${projectId}`
-          ),
-          fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/project/${projectId}`
-          ),
-          fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teams/project/${projectId}`
-          ),
-          fetch(
-            "https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/milestones"
-          ),
+          api.get(`/projects/${projectId}`),
+          api.get(`/tasks/project/${projectId}`),
+          api.get(`/teams/project/${projectId}`),
+          api.get("/milestones"),
         ]);
 
-        const projectData = await projectResponse.json();
-        const tasksData = await tasksResponse.json();
-        const teamData = await teamResponse.json();
-        const milestonesData = await milestonesResponse.json();
+        setProject(projectResponse.data);
+        setTasks(Array.isArray(tasksResponse.data) ? tasksResponse.data : []);
+        setMilestones(
+          Array.isArray(milestonesResponse.data) ? milestonesResponse.data : []
+        );
 
-        setProject(projectData);
-        setTasks(Array.isArray(tasksData) ? tasksData : []);
-        setMilestones(Array.isArray(milestonesData) ? milestonesData : []);
-
-        if (teamData && teamData.teamId) {
-          const usersResponse = await fetch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teamMember?teamId=${teamData.teamId}`
+        if (teamResponse.data && teamResponse.data.teamId) {
+          const usersResponse = await api.get(
+            `/teamMember?teamId=${teamResponse.data.teamId}`
           );
-          const teamMembers = await usersResponse.json();
-          console.log(teamMembers);
+          const teamMembers = usersResponse.data;
 
           if (Array.isArray(teamMembers)) {
             const userIds = teamMembers.map((member) => member.user.userId);
-            console.log(userIds);
             const userDetailsResponses = await Promise.all(
-              userIds.map((userId) =>
-                fetch(
-                  `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/admin/users/${userId}`
-                )
-              )
+              userIds.map((userId) => api.get(`/admin/users/${userId}`))
             );
-            const userDetailsData = await Promise.all(
-              userDetailsResponses.map((res) => res.json())
-            );
+            const userDetailsData = userDetailsResponses.map((res) => res.data);
             setUsers(userDetailsData);
           }
         } else {
@@ -79,6 +62,8 @@ const UpdateTask = () => {
       } catch (err) {
         console.error("Failed to fetch data:", err);
         setError("An error occurred while fetching data.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -130,18 +115,17 @@ const UpdateTask = () => {
         milestone: { milestoneId: taskDetails.milestoneId },
       };
 
-      const response = await fetch(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/updateUser?taskId=${selectedTask}&userId=${taskDetails.userId}&projectId=${projectId}`,
+      const response = await api.put(
+        `/tasks/updateUser?taskId=${selectedTask}&userId=${taskDetails.userId}&projectId=${projectId}`,
+        updatedTask,
         {
-          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(updatedTask),
         }
       );
 
-      if (!response.ok) throw new Error("Failed to update task");
+      if (response.status !== 200) throw new Error("Failed to update task");
 
       alert("Task updated successfully");
     } catch (err) {

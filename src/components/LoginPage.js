@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo2 from "../media/login.png";
 import "../css/LoginPage.css";
+import api from "./config/app";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -18,21 +19,18 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await fetch(
-        `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/login?email=${encodeURIComponent(
-          email
-        )}&password=${encodeURIComponent(password)}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const response = await api.get(`/login`, {
+        params: {
+          email,
+          password,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-      if (response.ok) {
-        const user = await response.json();
+      if (response.status === 200) {
+        const user = response.data;
 
         if (user.status !== "ACTIVE") {
           setMessage("Your account is inactive. Please contact the admin.");

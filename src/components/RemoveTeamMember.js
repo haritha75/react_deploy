@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import api from "./config/app";
 import Modal from "./Modal";
 import "../css/RemoveTeamMember.css";
 
@@ -15,19 +15,15 @@ const RemoveTeamMember = () => {
 
   useEffect(() => {
     if (projectId) {
-      axios
-        .get(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teams/project/${projectId}`
-        )
+      api
+        .get(`/teams/project/${projectId}`)
         .then((response) => {
           const team = response.data;
           if (team) {
             setTeamName(team.teamName);
             setTeamId(team.teamId);
-            axios
-              .get(
-                `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teamMember?teamId=${team.teamId}`
-              )
+            api
+              .get(`/teamMember?teamId=${team.teamId}`)
               .then((response) => {
                 const users = response.data.map((member) => ({
                   userId: member.user.userId,
@@ -63,10 +59,8 @@ const RemoveTeamMember = () => {
     setLoading(true);
 
     if (teamId && userId) {
-      axios
-        .delete(
-          `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/teamMember?userId=${userId}&teamId=${teamId}`
-        )
+      api
+        .delete(`/teamMember?userId=${userId}&teamId=${teamId}`)
         .then((response) => {
           console.log("Team member removed successfully:", response.data);
 
@@ -74,12 +68,9 @@ const RemoveTeamMember = () => {
             prevUsers.filter((user) => user.userId !== userId)
           );
 
-          return axios.patch(
-            `https://taskmanagementspringboot-aahfeqggang5fdee.southindia-01.azurewebsites.net/api/users/${userId}`,
-            {
-              managerId: 0,
-            }
-          );
+          return api.patch(`/users/${userId}`, {
+            managerId: 0,
+          });
         })
         .then((response) => {
           console.log("User manager_id updated successfully:", response.data);

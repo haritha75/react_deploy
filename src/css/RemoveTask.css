@@ -1,0 +1,77 @@
+.remove-task-container {
+  font-family: "Roboto", sans-serif;
+  padding: 20px;
+  text-align: center;
+}
+
+.project-name {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.task-card-removes {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.task-card-remove {
+  font-family: "Roboto", sans-serif;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  width: 200px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  height: 250px;
+  transition: transform 0.3s ease;
+}
+
+.task-card-remove:hover {
+  transform: scale(1.05);
+}
+
+.task-detail-remove {
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 10px;
+}
+
+.task-detail-remove {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.task-detail-remove {
+  color: #0a0a0a;
+}
+
+.remove-button-btn {
+  font-family: "Roboto", sans-serif;
+  background-color: #748d92;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+.remove-button-btn:hover {
+  background-color: #124e66;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-weight: bold;
+}

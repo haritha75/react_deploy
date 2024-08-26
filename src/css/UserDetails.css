@@ -1,0 +1,88 @@
+
+
+
+.user-details-container {
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+  border: 1px solid #e0e0e0;
+  padding: 30px;
+  color: #124e66;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px #124e66;
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  overflow-y: auto;
+  max-height: 500px;
+  box-sizing: border-box; 
+}
+
+.user-details-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-top: 1%;
+  margin-bottom: 5%;
+  font-weight: 700;
+  color: #124e66;
+}
+
+.user-details-label {
+  display: block;
+  margin-top: 10px;
+  margin-left: 10%;
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 1rem;
+  color: #124e66;
+}
+
+.user-details-info {
+  display: block;
+  width: 80%;
+  padding: 12px;
+  margin-top: 5px;
+  margin-left: 10%;
+  box-sizing: border-box;
+  font-weight: 400;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.user-details-error {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.common {
+  margin: auto;
+}
+
+.user-details-button {
+  padding: 12px 20px;
+  background-color: #124e66;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  width: 150px;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 5%;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.user-details-button:hover {
+  background-color: black;
+  transform: translateY(-2px);
+}
+
+
+@media (max-width: 768px) {
+  .user-details-container {
+    max-width: 300px;
+  }
+}

@@ -1,0 +1,187 @@
+.registration-form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #e0e0e0;
+  padding: 30px;
+  color: #124e66;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px #124e66;
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  overflow-y: auto;
+  max-height: 700px
+}
+
+.registration-form-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-top: 1%;
+  margin-bottom: 5%;
+  font-weight: 700;
+  color: #124e66;
+}
+
+.registration-form-label {
+  display: block;
+  margin-top: 10px;
+  margin-left: 10%;
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 1rem;
+  color: #124e66;
+}
+
+.registration-form-input,
+.registration-form-select {
+  display: block;
+  width: 80%;
+  padding: 12px;
+  margin-top: 5px;
+  margin-left: 10%;
+  box-sizing: border-box;
+  font-weight: 400;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.registration-form-input:focus,
+.registration-form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+.registration-form-button {
+  padding: 12px 20px;
+  background-color: #124e66;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  width: 150px;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 5%;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.registration-form-button:hover {
+  background-color: black;
+  transform: translateY(-2px);
+}
+
+.common {
+  margin: auto;
+}
+
+/* New styles for password constraints */
+.password-requirements {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.password-requirements p {
+  margin: 0;
+  font-weight: bold;
+  color: #124e66;
+}
+
+.password-requirements ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.password-requirements li {
+  margin: 5px 0;
+  color: #d9534f; /* Red color for unmet conditions */
+}
+
+.password-requirements li.fulfilled {
+  color: #39d10b; /* Blue color for fulfilled conditions */
+  
+}
+
+@media (max-width: 768px) {
+  .registration-form-container {
+    padding: 20px;
+    max-width: 100%;
+    box-shadow: none;
+  }
+
+  .registration-form-title {
+    font-size: 2rem;
+    margin-top: 2%;
+    margin-bottom: 4%;
+  }
+
+  .registration-form-label {
+    margin-left: 5%;
+    font-size: 0.9rem;
+  }
+
+  .registration-form-input,
+  .registration-form-select {
+    width: 90%;
+    margin-left: 5%;
+    padding: 10px;
+  }
+
+  .registration-form-button {
+    width: 100px;
+    font-size: 12px;
+    padding: 10px 15px;
+  }
+  
+  /* Responsive styling for password requirements */
+  .password-requirements {
+    padding: 8px;
+  }
+
+  .password-requirements li {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-form-container {
+    padding: 15px;
+  }
+
+  .registration-form-title {
+    font-size: 1.8rem;
+  }
+
+  .registration-form-label {
+    margin-left: 5%;
+    font-size: 0.8rem;
+  }
+
+  .registration-form-input,
+  .registration-form-select {
+    width: 90%;
+    margin-left: 5%;
+    padding: 8px;
+  }
+
+  .registration-form-button {
+    width: 90px;
+    font-size: 11px;
+    padding: 8px 12px;
+  }
+  
+  /* Responsive styling for password requirements */
+  .password-requirements {
+    padding: 6px;
+  }
+
+  .password-requirements li {
+    font-size: 0.8rem;
+  }
+}

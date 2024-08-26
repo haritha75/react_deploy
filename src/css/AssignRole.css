@@ -1,0 +1,135 @@
+.assign-role-form-container {
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+  border: 1px solid #e0e0e0;
+  padding: 30px;
+  color: #124e66;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px #124e66;
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.assign-role-title {
+  text-align: center;
+  font-size: 2.4rem;
+  margin-top: 1%;
+  margin-bottom: 5%;
+  font-weight: 700;
+  color: #124e66;
+}
+
+.assign-role-label {
+  display: block;
+  margin-top: 10px;
+  margin-left: 10%;
+  font-family: "Roboto Slab", sans-serif;
+  font-size: 1rem;
+  color: #124e66;
+}
+
+.assign-role-input,
+.assign-role-select {
+  display: block;
+  width: 80%;
+  padding: 12px;
+  margin-top: 5px;
+  margin-left: 10%;
+  box-sizing: border-box;
+  font-weight: 400;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.assign-role-input:focus,
+.assign-role-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+.assign-role-button {
+  padding: 12px 20px;
+  background-color: #124e66;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  width: 150px;
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 5%;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.assign-role-button:hover {
+  background-color: black;
+  transform: translateY(-2px);
+}
+
+.common {
+  margin: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .assign-role-form-container {
+    padding: 20px;
+  }
+
+  .assign-role-title {
+    font-size: 1.8rem;
+    margin-bottom: 4%;
+  }
+
+  .assign-role-label {
+    margin-left: 5%;
+    font-size: 0.9rem;
+  }
+
+  .assign-role-input,
+  .assign-role-select {
+    width: 90%;
+    margin-left: 5%;
+  }
+
+  .assign-role-button {
+    width: 100%;
+    font-size: 12px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .assign-role-form-container {
+    padding: 15px;
+  }
+
+  .assign-role-title {
+    font-size: 1.6rem;
+    margin-bottom: 3%;
+  }
+
+  .assign-role-label {
+    margin-left: 0;
+    font-size: 0.8rem;
+  }
+
+  .assign-role-input,
+  .assign-role-select {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .assign-role-button {
+    width: 100%;
+    font-size: 11px;
+    padding: 8px;
+  }
+}

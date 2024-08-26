@@ -1,0 +1,18 @@
+.admin-task-pie-chart-wrapper {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.admin-task-pie-chart-container {
+  font-family: "Roboto", sans-serif;
+  position: relative;
+  width: 80%;
+  width: 1000px;
+  height: 600px;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  padding-left: 25%;
+}

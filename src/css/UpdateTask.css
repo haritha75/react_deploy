@@ -1,0 +1,91 @@
+.update-task-wrapper {
+  font-family: "Roboto", sans-serif;
+  max-width: 750px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #748d92;
+  box-shadow: 0 8px 30px rgba(18, 78, 102, 0.3);
+}
+
+.update-task-title {
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #124e66;
+}
+
+.update-task-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-group {
+  margin-bottom: 18px;
+}
+
+.field-group-label {
+  font-family: "Roboto", sans-serif;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #124e66;
+}
+
+.field-group-input,
+.field-group-select,
+.field-group-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: "Roboto", sans-serif;
+}
+
+.field-group-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #124e66;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 15px rgba(18, 78, 102, 0.3);
+  font-family: "Roboto", sans-serif;
+}
+
+.submit-button:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #748d92;
+}
+
+.submit-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(18, 78, 102, 0.5);
+}
+
+.error-message {
+  color: #ff0000;
+  font-weight: bold;
+}
+.project-info-heading {
+  font-size: 20px;
+  font-weight: bold;
+  color: #4a90e2;
+  margin-bottom: 15px;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}

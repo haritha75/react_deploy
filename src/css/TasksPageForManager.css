@@ -1,0 +1,112 @@
+.tasks-page-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.tasks-page-title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.tasks-page-table {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.tasks-page-header {
+  display: contents;
+  font-weight: bold;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+.tasks-page-header-item {
+  padding: 5px;
+}
+
+.tasks-page-body {
+  display: contents;
+}
+
+.tasks-page-row {
+  display: contents;
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+.tasks-page-item {
+  padding: 5px;
+}
+
+.tasks-page-empty-message {
+  color: #888;
+  font-style: italic;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #333;
+  color: white;
+}
+
+.pagination button:hover {
+  background-color: #1b1b1b;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .tasks-page-table {
+    display: block;
+  }
+
+  .tasks-page-header {
+    display: none;
+  }
+
+  .tasks-page-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .tasks-page-item {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .tasks-page-item::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+    flex: 0 0 auto;
+  }
+
+  .tasks-page-item:last-child {
+    border-bottom: none;
+  }
+}

@@ -1,0 +1,106 @@
+.remove-team-member-container {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.remove-team-member-panel {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: #f9f9f9;
+  border-radius: 15px;
+  padding: 30px;
+  font-family: "Roboto Slab", serif;
+  color: #124e66;
+  width: 100%;
+  max-width: 800px;
+  margin-top: -30%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1),
+    0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.remove-team-member-header {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #003f5c;
+}
+
+.remove-team-member-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+}
+
+.remove-team-member-section {
+  flex: 1;
+  min-width: 100px;
+}
+
+.remove-team-member-title {
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #0074a6;
+}
+
+.remove-team-member-content {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  margin-bottom: 5px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #fafafa;
+}
+
+.remove-team-member-content:focus {
+  border-color: #80bdff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+.remove-team-member-alert {
+  font-family: "Roboto", sans-serif;
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+  background-color: #d9534f !important;
+
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-team-member-alert:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .remove-team-member-row {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 486px) {
+  .remove-team-member-container {
+    /* margin-top: 5%; */
+    min-height: 0;
+  }
+}

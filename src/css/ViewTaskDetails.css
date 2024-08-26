@@ -1,0 +1,90 @@
+.view-task-details-wrapper {
+  max-width: 750px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #748d92;
+  box-shadow: 0 8px 30px rgba(18, 78, 102, 0.3);
+  font-family: "Roboto", sans-serif;
+}
+
+.task-details-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #124e66;
+  font-family: "Roboto", sans-serif;
+}
+
+.field-group {
+  margin-bottom: 18px;
+}
+
+.field-group-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #124e66;
+  font-family: "Roboto", sans-serif;
+}
+
+.field-group-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: "Roboto", sans-serif;
+}
+
+.task-details {
+  margin-bottom: 20px;
+}
+
+.task-detail-item {
+  margin-bottom: 10px;
+  color: #124e66;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+}
+
+.timestamps {
+  margin-top: 20px;
+}
+
+.timestamps-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #4a90e2;
+  margin-bottom: 15px;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+
+.timestamps-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.timestamp-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.timestamp-detail {
+  margin-bottom: 5px;
+  color: #124e66;
+  font-family: "Roboto", sans-serif;
+}
+
+.loading,
+.error {
+  font-size: 18px;
+  color: #ff0000;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+}

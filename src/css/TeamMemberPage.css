@@ -1,0 +1,134 @@
+.tm-login {
+  background-image: url("../media/backgroundgeneral.png");
+  background-color: rgba(255, 255, 255, 0.7);
+  background-size: cover;
+  background-position: center;
+  font-family: "Roboto", sans-serif;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+  position: relative;
+  padding: 20px;
+}
+
+.tasks-detail {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  width: 93%;
+}
+
+#head {
+  text-align: left;
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.welcome {
+  font-size: x-large;
+  margin-top: 50px;
+  margin-left: 71px;
+  margin-right: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.project-card {
+  height: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+.client-card {
+  height: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.update-button-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+#update-milestone-button {
+  height: 50%;
+  margin: auto;
+  background-color: #124e66;
+  border: none;
+  box-shadow: 5px 5px 15px 5px rgba(18, 78, 102, 0.8);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+#update-milestone-button:hover {
+  background-color: #2e3944;
+  transform: scale(1.05);
+}
+
+#update-milestone-button:active {
+  background-color: #124e66;
+  transform: scale(0.98);
+}
+
+#your-tasks {
+  margin-bottom: 20px;
+}
+
+#logout-button-team {
+  margin-top: 67px;
+  margin-right: 80px;
+  background-color: #124e66;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+#logout-button-team:hover {
+  background-color: #2e3944;
+}
+
+@media (max-width: 768px) {
+  .welcome {
+    text-align: center;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .tasks-detail {
+    width: 100%;
+  }
+
+  #update-milestone-button {
+    width: 100%;
+  }
+
+  .tm-login {
+    height: fit-content;
+  }
+}
+
+@media (max-width: 576px) {
+  .welcome {
+    font-size: large;
+  }
+
+  #head {
+    font-size: 24px;
+  }
+
+  #update-milestone-button {
+    height: auto;
+  }
+
+  .tm-login {
+    height: fit-content;
+  }
+}

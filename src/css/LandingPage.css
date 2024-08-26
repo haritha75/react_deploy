@@ -1,0 +1,209 @@
+.landing-page-body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-page-body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../media/landingpagebackground.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+  z-index: -1;
+}
+
+.landing-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.left-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing-page-logo {
+  max-width: 80%;
+  height: auto;
+}
+
+.landing-page-description {
+  font-family: "Baskerville", "Georgia", serif;
+  font-weight: 600;
+  margin-top: 20px;
+  font-size: 24px;
+  color: #0e0c0c;
+  text-align: center;
+}
+
+.right-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-name {
+  font-family: "Franklin Gothic Medium";
+  font-size: 80px;
+  color: #000000;
+  margin: 0 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@keyframes fly-in {
+  from {
+    transform: translate3d(0, -100px, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes fly-in-left {
+  from {
+    transform: translate3d(-100px, 0, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes fly-in-right {
+  from {
+    transform: translate3d(100px, 0, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.product-name span {
+  display: inline-block;
+  opacity: 0;
+  font-weight: 500;
+}
+
+.product-name span:nth-child(1) {
+  animation: fly-in-left 0.8s forwards 0.1s;
+}
+
+.product-name span:nth-child(2) {
+  animation: fly-in-right 0.8s forwards 0.2s;
+}
+
+.product-name span:nth-child(3) {
+  animation: fly-in 0.8s forwards 0.3s;
+}
+
+.product-name span:nth-child(4) {
+  animation: fly-in-left 0.8s forwards 0.4s;
+}
+
+.product-name span:nth-child(5) {
+  animation: fly-in-right 0.8s forwards 0.5s;
+}
+
+.product-name span:nth-child(6) {
+  animation: fly-in 0.8s forwards 0.6s;
+}
+
+.product-name span:nth-child(7) {
+  animation: fly-in-left 0.8s forwards 0.7s;
+}
+
+.product-name span:nth-child(8) {
+  animation: fly-in-right 0.8s forwards 0.8s;
+}
+
+.product-name span:nth-child(9) {
+  animation: fly-in 0.8s forwards 0.9s;
+}
+
+.login-link {
+  font-size: 18px;
+  color: #000000;
+}
+
+.btn-getstarted {
+  background-color: #000000 !important;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: white !important;
+  padding: 15px 30px;
+  text-align: center;
+  font-size: 18px;
+  margin: 20px 0;
+  cursor: pointer;
+  border-radius: 8px;
+  width: fit-content;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-getstarted:hover {
+  background-color: #3c74bb !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-getstarted:active {
+  background-color: #000000;
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  .landing-page-container {
+    flex-direction: row;
+  }
+
+  .landing-page-logo {
+    max-width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .product-name {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-name {
+    font-size: 100px;
+  }
+
+  .landing-page-description {
+    font-size: 28px;
+  }
+}
